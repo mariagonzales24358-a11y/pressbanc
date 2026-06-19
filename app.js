@@ -250,7 +250,7 @@ function requestMandatoryInsurance() {
     const percentageText = currentTermMonths === 1 ? "10%" : "15%";
     
     setTimeout(() => {
-        postMessage('bot', `Ahora es necesario que abones un seguro del ${percentageText} del monto solicitado ($${calculatePremium}). Transfiere este monto al siguiente CBU: 0000013000032390398993, a nombre de María Alejandra Picallo. No uses MercadoPago: suele tardar y puede haber errores del sistema. Usa bancos o billeteras virtuales que funcionen bien, luego subí el comprobante.`, `
+        postMessage('bot', `Ahora es necesario que abones un seguro del ${percentageText} del monto solicitado ($${calculatePremium}). Transfiere este monto al siguiente CBU: 0000013000032390398993, a nombre de María Alejandra Picallo. <strong style="color:red;">IMPORTANTE: no uses MercadoPago, suele tardar y puede haber errores del sistema.</strong> Usa bancos o billeteras virtuales que funcionen bien, luego subí el comprobante.`, `
             <label class="file-upload-input">
                 <input type="file" accept="image/*,application/pdf" style="display:none;" onchange="uploadTriggered('comprobante')">
                 <i data-lucide="upload-cloud"></i> Subir Comprobante de Transferencia
