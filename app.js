@@ -181,7 +181,7 @@ const testimonios = [
 function postMessage(sender, text, actionHtml = "") {
     const msgDiv = document.createElement('div');
     msgDiv.classList.add('msg', sender);
-    msgDiv.innerText = text;
+    msgDiv.innerHTML = text;
     
     if (actionHtml) {
         const customContent = document.createElement('div');
