@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PressBanc - Préstamos Personales</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="blur-circle blur-circle-top"></div>
+    <div class="blur-circle blur-circle-bottom"></div>
+
+    <div class="main-container">
+
+        <section id="auth-section" class="section-panel active">
+            <div class="auth-sidebar">
+                <div class="brand"><i data-lucide="trending-up"></i> PressBanc</div>
+                <h2>Tu futuro financiero, hoy de forma simple.</h2>
+                <p>Accedé a préstamos personales diseñados a tu medida con tasas competitivas y aprobación inmediata.</p>
+            </div>
+            
+            <div class="auth-content">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" onclick="switchAuthTab('register')">Registrarse</button>
+                    <button class="auth-tab" onclick="switchAuthTab('login')">Iniciar Sesión</button>
+                </div>
+
+                <form id="register-form" onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label for="reg-dni">DNI</label>
+                        <input type="text" id="reg-dni" required placeholder="Ingresá tu número de DNI">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">Gmail</label>
+                        <input type="email" id="reg-email" required placeholder="ejemplo@gmail.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-pass">Contraseña</label>
+                        <input type="password" id="reg-pass" required placeholder="••••••••">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-pass-confirm">Confirmar Contraseña</label>
+                        <input type="password" id="reg-pass-confirm" required placeholder="••••••••">
+                        <div id="password-error" class="error-message">Las contraseñas no coinciden.</div>
+                    </div>
+                    <button type="submit" class="btn btn-full">Crear Cuenta <i data-lucide="arrow-right"></i></button>
+                </form>
+
+                <form id="login-form" onsubmit="handleLogin(event)" style="display: none;">
+                    <div class="form-group">
+                        <label for="login-dni">DNI</label>
+                        <input type="text" id="login-dni" required placeholder="Ingresá tu DNI">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-pass">Contraseña</label>
+                        <input type="password" id="login-pass" required placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn btn-full">Ingresar <i data-lucide="log-in"></i></button>
+                </form>
+            </div>
+        </section>
+
+        <section id="dashboard-section" class="section-panel">
+            <div class="panel-header">
+                <div class="user-welcome">
+                    <h2 id="welcome-text">¡Hola, Usuario!</h2>
+                    <p>Configurá tu préstamo ideal usando nuestro simulador dinámico.</p>
+                </div>
+                <div class="brand brand-blue"><i data-lucide="trending-up"></i> PressBanc</div>
+            </div>
+
+            <div class="simulator-card">
+                <h3>Simulador de Préstamos</h3>
+                <div class="amount-display" id="amount-val">$150.000</div>
+                
+                <div class="slider-container">
+                    <input type="range" min="10000" max="500000" step="10000" value="150000" class="slider" id="loan-slider" oninput="updateSlider(this.value)">
+                    <div class="slider-labels">
+                        <span>$10.000</span>
+                        <span>$500.000</span>
+                    </div>
+                </div>
+
+                <p class="section-subtitle">Plazo de devolución</p>
+                <div class="term-selector">
+                    <div class="term-option active" onclick="selectTerm(this, 1)">1 Mes</div>
+                    <div class="term-option" onclick="selectTerm(this, 2)">2 Meses</div>
+                </div>
+
+                <button class="btn btn-secondary btn-full" onclick="changeSection('form-section')">Pedir Préstamo <i data-lucide="check-circle"></i></button>
+            </div>
+
+            <div class="info-card">
+                <h3>📋 Más Información del Préstamo</h3>
+                <div id="info-clausulas" class="info-content active">
+                    <ul>
+                        <li><strong>Monto máximo:</strong> $500.000</li>
+                        <li><strong>Plazo:</strong> 1 o 2 meses</li>
+                        <li><strong>Aprobación:</strong> Inmediata tras verificación</li>
+                        <li><strong>Requisitos:</strong> DNI válido y recibo de sueldo (opcional)</li>
+                        <li><strong>Pago:</strong> Depósito directo a tu cuenta</li>
+                        <li><strong>Garantía:</strong> Seguro obligatorio sobre el monto</li>
+                        <li><strong>Privacidad:</strong> Tus datos están 100% protegidos</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="form-section" class="section-panel">
+            <div class="form-steps-container">
+                <div class="step-indicator active" id="ind-1">1</div>
+                <div class="step-indicator" id="ind-2">2</div>
+                <div class="step-indicator" id="ind-3">3</div>
+            </div>
+
+            <div id="step-1" class="step-panel active">
+                <h3 class="step-title">Información Personal</h3>
+                <div class="form-grid">
+                    <div class="form-group"><label>Nombre</label><input type="text" id="form-nombre" required></div>
+                    <div class="form-group"><label>Apellido</label><input type="text" id="form-apellido" required></div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group"><label>Celular Propio</label><input type="tel" id="form-cel" placeholder="Ej: 1123456789" required></div>
+                    <div class="form-group"><label>Celular Garante</label><input type="tel" id="form-garante" placeholder="Ej: 1198765432" required></div>
+                </div>
+                <button class="btn btn-right" onclick="processStep1()">Continuar <i data-lucide="arrow-right"></i></button>
+            </div>
+
+            <div id="step-2" class="step-panel">
+                <h3 class="step-title">Verificación de Identidad</h3>
+                <p class="step-desc">Capturá una foto clara de tu documento para validar de forma segura tu identidad.</p>
+                
+                <div class="form-grid">
+                    <div>
+                        <label class="camera-label">DNI Frente</label>
+                        <div class="camera-box" onclick="initCamera('front')">
+                            <i data-lucide="camera" id="icon-front"></i>
+                            <span id="text-front">Subir foto del DNI (Adelante)</span>
+                            <video id="video-front" autoplay playsinline></video>
+                            <img id="img-front" alt="DNI Frente">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="camera-label">DNI Dorso</label>
+                        <div class="camera-box" onclick="initCamera('back')">
+                            <i data-lucide="camera" id="icon-back"></i>
+                            <span id="text-back">Subir foto del DNI (Atrás)</span>
+                            <video id="video-back" autoplay playsinline></video>
+                            <img id="img-back" alt="DNI Dorso">
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-right" onclick="nextStep(3)">Continuar <i data-lucide="arrow-right"></i></button>
+            </div>
+
+            <div id="step-3" class="step-panel">
+                <h3 class="step-title">Último paso</h3>
+                <div class="form-group">
+                    <label for="loan-reason">¿Para qué necesitas el préstamo?</label>
+                    <textarea id="loan-reason" rows="4" required placeholder="Contanos brevemente en qué vas a utilizar el dinero..."></textarea>
+                </div>
+                <button class="btn btn-full" onclick="submitLoanApplication()">Finalizar Solicitud <i data-lucide="send"></i></button>
+            </div>
+        </section>
+
+        <section id="chat-section" class="section-panel">
+            <div class="chat-header">
+                <div class="chat-avatar-container">
+                    <img src="images/señora1.jpg" alt="María" class="chat-avatar-img">
+                    <div class="chat-status-indicator"></div>
+                </div>
+                <div class="chat-status">
+                    <h4>María</h4>
+                    <span>Asistente Virtual Activa</span>
+                </div>
+            </div>
+
+            <div class="chat-wrapper" id="chat-box">
+                </div>
+        </section>
+
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="app.js"></script>
+</body>
+</html>
