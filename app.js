@@ -1,5 +1,5 @@
 // Manejo del estado global de la simulación
-let currentLoanAmount = 150000;
+let currentLoanAmount = 100000;
 let currentTermMonths = 1;
 let activeUserDni = "";
 
